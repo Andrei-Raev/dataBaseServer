@@ -22,6 +22,11 @@ class AchievementStatus(BaseModel):
     is_got: bool = False
     date_got: datetime = None
 
+    class Config:
+        json_encoders = {
+            datetime: lambda v: v.strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
+        }
+
 
 class User(BaseModel):
     id: int = None

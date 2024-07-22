@@ -70,13 +70,12 @@ async def delete_user(user_id: int, db: AsyncSession = Depends(get_db)) -> str:
 
 
 @router.patch("/user/{user_id}/achievements", tags=["Users"])
-async def update_user_achievements(user_id: int, achievements: list[AchievementStatus],
-                                   db: AsyncSession = Depends(get_db)) -> User:
+async def update_user_achievements(user_id: int, achievements: list[AchievementStatus], db: AsyncSession = Depends(get_db)) -> User:
     async with db.begin():
         db_user = (await db.execute(select(UserORM).where(UserORM.id == user_id))).scalar_one_or_none()
         if db_user is None:
             raise HTTPException(status_code=404, detail=f"User with id {user_id} not found")
-        db_user.achievements_history = '[' + ','.join([achievement.json() for achievement in achievements]) + ']'
+        db_user.achievements_history =[achievement.dict() for achievement in achievements]
     user = (await db.execute(select(UserORM).where(UserORM.id == user_id))).scalar_one_or_none()
     return User.from_orm(user)
 
