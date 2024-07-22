@@ -49,6 +49,7 @@ async def create_user(user: User, db: AsyncSession = Depends(get_db)) -> User:
                 select(UserORM).where(UserORM.external_id == user.external_id))).scalar_one_or_none() is not None:
             raise HTTPException(status_code=409, detail=f"User with external_id {user.external_id} already exists")
 
+        user.id = None
         await db.execute(insert(UserORM).values(**user.dict()))
 
     db_user = (await db.execute(select(UserORM).where(UserORM.external_id == user.external_id))).scalar_one_or_none()
