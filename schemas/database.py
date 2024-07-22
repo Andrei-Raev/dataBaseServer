@@ -23,7 +23,7 @@ class AchievementStatus(BaseModel):
     date_got: datetime = None
 
     class Config:
-        json_encoders = {
+        dict_encoders = {
             datetime: lambda v: v.strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
         }
 
