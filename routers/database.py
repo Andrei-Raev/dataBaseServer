@@ -59,10 +59,11 @@ async def create_user(user: User, db: AsyncSession = Depends(get_db)) -> User:
 
 @router.delete("/user/{user_id}", responses=simple_404_responses, tags=["Users"])
 async def delete_user(user_id: int, db: AsyncSession = Depends(get_db)) -> str:
-    db_user = (await db.execute(select(UserORM).where(UserORM.id == user_id))).scalar_one_or_none()
-    if db_user is None:
-        raise HTTPException(status_code=404, detail=f"User with id {user_id} not found")
     async with db.begin():
+        db_user = (await db.execute(select(UserORM).where(UserORM.id == user_id))).scalar_one_or_none()
+        if db_user is None:
+            raise HTTPException(status_code=404, detail=f"User with id {user_id} not found")
+
         await db.execute(delete(db_user))
     return 'Success'
 
