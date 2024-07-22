@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel
@@ -14,10 +15,18 @@ class Achievement(BaseModel):
         from_attributes = True
 
 
+class AchievementStatus(BaseModel):
+    achievement_id: int
+    is_unlocked: bool = False
+    date_unlocked: datetime = None
+    is_got: bool = False
+    date_got: datetime = None
+
+
 class User(BaseModel):
     id: int = None
     external_id: str
-    achievements_history: Optional[list[Achievement]] = None
+    achievements_history: Optional[list[AchievementStatus]] = None
 
     class Config:
         from_attributes = True

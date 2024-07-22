@@ -69,7 +69,7 @@ async def delete_user(user_id: int, db: AsyncSession = Depends(get_db)) -> str:
 
 
 @router.patch("/user/{user_id}/achievements", tags=["Users"])
-async def update_user_achievements(user_id: int, achievements: list[Achievement], db: AsyncSession = Depends(get_db)) -> User:
+async def update_user_achievements(user_id: int, achievements: list[AchievementStatus], db: AsyncSession = Depends(get_db)) -> User:
     async with db.begin():
         db_user = (await db.execute(select(UserORM).where(UserORM.id == user_id))).scalar_one_or_none()
         if db_user is None:
