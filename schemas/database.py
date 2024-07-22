@@ -11,7 +11,7 @@ class Achievement(BaseModel):
     animated_image: Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class User(BaseModel):
@@ -20,7 +20,6 @@ class User(BaseModel):
     achievements_history: Optional[list[Achievement]] = None
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 
@@ -37,7 +36,7 @@ class Card(BaseModel):
     progress_type: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class CardProgress(BaseModel):
@@ -49,7 +48,7 @@ class CardProgress(BaseModel):
     finished_at: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class OperationType(BaseModel):
@@ -57,7 +56,7 @@ class OperationType(BaseModel):
     name: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class OperationHistory(BaseModel):
@@ -68,7 +67,7 @@ class OperationHistory(BaseModel):
     date: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class Type(BaseModel):
@@ -78,4 +77,4 @@ class Type(BaseModel):
     color: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
