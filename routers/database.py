@@ -64,7 +64,7 @@ async def delete_user(user_id: int, db: AsyncSession = Depends(get_db)) -> str:
         if db_user is None:
             raise HTTPException(status_code=404, detail=f"User with id {user_id} not found")
 
-        await db.execute(delete(db_user))
+        await db.execute(delete(UserORM).where(UserORM.id == user_id))
     return 'Success'
 
 
