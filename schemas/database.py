@@ -18,14 +18,9 @@ class Achievement(BaseModel):
 class AchievementStatus(BaseModel):
     achievement_id: int
     is_unlocked: bool = False
-    date_unlocked: datetime = None
+    date_unlocked: Optional[datetime] = None
     is_got: bool = False
-    date_got: datetime = None
-
-    class Config:
-        dict_encoders = {
-            datetime: lambda v: v.strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
-        }
+    date_got: Optional[datetime] = None
 
 
 class User(BaseModel):
