@@ -33,6 +33,7 @@ class CardORM(Base):
     rewardAchievement = Column(Integer, ForeignKey("achievements.id"))  # Id связанной ачивки
     activator = Column(Text, nullable=False)  # Активатор карточки
     progress_type = Column(Integer)  # Тип прогресса карточки
+    is_root = Column(Boolean)
 
 
 class UserORM(Base):
@@ -50,6 +51,7 @@ class CardProgressORM(Base):
     progress = Column(Text, nullable=False)  # Прогресс выполнения
     is_finished = Column(Boolean, nullable=False)  # Завершена ли карточка
     finished_at = Column(DateTime)  # Дата завершения
+    started_at = Column(DateTime, default=datetime.now)
 
 
 class OperationTypeORM(Base):
